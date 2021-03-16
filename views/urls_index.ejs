@@ -30,6 +30,8 @@
         <tr>
           <th scope="col">Short URL</th>
           <th scope="col">Long URL</th>
+          <th scope="col">Delete</th>
+          <th scope="col">Edit</th>
         </tr>
       </thead>
       <tbody>
@@ -43,6 +45,7 @@
                 Delete
               </button>
             </form>
+            <td> <a href='/urls/<%= url %>'> <button type="button" name="button" class="btn btn-outline-primary">Edit</button> </a> </td>
             </td>
           </tr>
         <% } %>
