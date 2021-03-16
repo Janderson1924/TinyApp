@@ -16,12 +16,15 @@ app.set('view engine', 'ejs');
 
 const urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
-  "9sm5xK": "http://www.google.com"
+  "9sm5xK": "http://www.google.com",
 };
 
 app.post('/urls', (req, res) => {
   console.log(req.body);
-  res.send('Ok');
+  let newKey = generateRandomString();
+  let value = req.body.longURL;
+  value = urlDatabase[newKey];
+  res.redirect(`/urls/${newKey}`);
 });
 
 app.get('/urls/new', (req, res) => {
@@ -31,6 +34,11 @@ app.get('/urls/new', (req, res) => {
 app.get('/urls/:shortURL', (req, res) => {
   const urlVar = { shortURL: req.params.shortURL, longURL: req.params.longURL };
   res.render('urls_show', urlVar);
+});
+
+app.get('/u/:shortURL', (req, res) => {
+  const newURL = urlDatabase[req.params.shortURL];
+  res.redirect(newURL);
 });
 
 app.get('/urls', (req, res) => {
