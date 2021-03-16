@@ -1,3 +1,11 @@
+const generateRandomString = () => {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let randomString = '';
+  while (randomString.length < 6) {
+    randomString += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return randomString;
+};
 const express = require("express");
 const app = express();
 const PORT = 8080; // default port 8080
