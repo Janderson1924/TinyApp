@@ -23,7 +23,7 @@ app.post('/urls', (req, res) => {
   console.log(req.body);
   let newKey = generateRandomString();
   let value = req.body.longURL;
-  value = urlDatabase[newKey];
+  urlDatabase[newKey] = value;
   res.redirect(`/urls/${newKey}`);
 });
 
@@ -37,7 +37,7 @@ app.get('/urls/:shortURL', (req, res) => {
 });
 
 app.get('/u/:shortURL', (req, res) => {
-  const newURL = urlDatabase[req.params.shortURL];
+  let newURL = urlDatabase[req.params.shortURL];
   res.redirect(newURL);
 });
 
