@@ -29,7 +29,6 @@ app.use(cookieParser());
 app.set("view engine", "ejs");
 
 
-
 const urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
   "9sm5xK": "http://www.google.com"
@@ -75,10 +74,6 @@ app.get('/urls', (req, res) => {
 
 
 app.get("/urls/new", (req, res) => {
-  if (!req.cookies['user_id']) {
-    res.redirect('/login');
-    return;
-  }
   const templateVars = {
     user_id: req.cookies['user_id'],
     users
