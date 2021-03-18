@@ -1,50 +1,66 @@
 <!DOCTYPE html>
-<html lang='en'>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" contents="width=device, initial-scale=1, shrink-to-fit=no">
+<html lang="en">
 
-  <!-- Bootstrap CSS-->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  <title>TinyApp</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
+  <title>URL Index - TinyApp</title>
 </head>
+
 <body>
-  <%- include('partials/_header') %>
-  <main style="margin: 1em;">
+  <header>
+    <%- include('partials/_header') %>
+  </header>
+  <main style="margin: 1em">
     <h3>My URLs</h3>
     <table class="table">
       <thead>
         <tr>
           <th scope="col">Short URL</th>
           <th scope="col">Long URL</th>
-          <th scope="col">Edit</th>
+          <th scope="col">Edit URL</th>
           <th scope="col">Delete</th>
+
         </tr>
       </thead>
       <tbody>
         <% for(let url in urls) { %>
           <tr>
-            <td><%= url %></td>
-            <td><%= urls[url] %></td>
             <td>
-              <!-- <form id="edit" method="GET" action="/urls/<%= url %>">
-                <button class="btn btn-outline-primary" type="submit" form="edit" value="Submit">Edit</button>
-              </form> -->
-              <a href="/urls/<%= url %>" class="btn btn-outline-primary">Edit</a>
+              <%= url %>
             </td>
             <td>
-              <form id="delete" method="POST" action="/urls/<%=url%>/delete">
-                <button class="btn btn-outline-danger" type="submit" form="delete" value="Submit">Delete</button>
+              <%= urls[url] %>
+            </td>
+            <td>
+              <a href="/urls/<%= url %>" class="btn btn-outline-info">Edit</a>
+            </td>
+            <td>
+              <form action="/urls/<%= url %>/delete" method="POST">
+                <button class="btn btn-outline-danger">Delete</button>
               </form>
             </td>
           </tr>
-        <% } %>
+          <% } %>
       </tbody>
     </table>
   </main>
-  <!-- Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  <!-- bootstrap js -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+    integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
+    crossorigin="anonymous"></script>
 </body>
+
 </html>
