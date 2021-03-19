@@ -86,6 +86,7 @@ app.get('/urls', (req, res) => {
     res.redirect('/login');
     return;
   }
+  console.log('req.cookies["user_id"]:', req.cookies['user_id']);
   const templateVars = {
     urls: urlsForUser(req.cookies['user_id']),
     user_id: req.cookies['user_id'],
@@ -161,13 +162,13 @@ app.post('/register', (req, res) => {
 
 app.post("/urls", (req, res) => {
   const shortURL = generateRandomString();
-  urlDatabase[shortURL] = req.body.longURL;
+  urlDatabase[shortURL] = { longURL: req.body.longURL, userID: req.cookies['user_id'] } ;
   res.redirect(`/urls/${shortURL}`);
 });
 
 
 app.post('/urls/:shortURL', (req, res) => {
-  urlDatabase[req.params.shortURL] = req.body.updateURL;
+  urlDatabase[req.params.shortURL] = req.body.updateURL; // TODO  update to new object format
   res.redirect(`/urls/${req.params.shortURL}`);
 });
 
@@ -175,7 +176,7 @@ app.post('/urls/:shortURL', (req, res) => {
 app.post('/urls/:shortURL/delete', (req, res) => {
   delete urlDatabase[req.params.shortURL];
   res.redirect('/urls');
-  // change so only users can delete
+  // TODO change so only users can delete
 });
 
 
