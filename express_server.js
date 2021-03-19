@@ -117,8 +117,7 @@ app.get('/urls/:shortURL', (req, res) => {
     user_id: req.cookies['user_id'],
     users
   };
-  res.render('urls_show', templateVars);
-  // change so only user can edit
+  res.render('urls_show', templateVars);     // TODO change so only user can edit
 });
 
 
@@ -175,8 +174,7 @@ app.post('/urls/:shortURL', (req, res) => {
 
 app.post('/urls/:shortURL/delete', (req, res) => {
   delete urlDatabase[req.params.shortURL];
-  res.redirect('/urls');
-  // TODO change so only users can delete
+  res.redirect('/urls');        // TODO change so only users can delete
 });
 
 
