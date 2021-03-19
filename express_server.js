@@ -17,9 +17,8 @@ const emailAlreadyExists = function(key, variable) {
 const urlsForUser = function(id) {
   let userURL = {};
   for (let key in urlDatabase) {
-    let urlKey = urlDatabase[key];
     if (urlDatabase[key]['userID'] === id) {
-      userURL[key] = urlKey;
+      userURL[key] = urlDatabase[key];
     }
   }
   return userURL;
@@ -87,10 +86,9 @@ app.get('/urls', (req, res) => {
     res.redirect('/login');
     return;
   }
-  let newCookie = req.cookies['user_id'];
   const templateVars = {
     urls: urlsForUser(req.cookies['user_id']),
-    user_id: users[newCookie],
+    user_id: req.cookies['user_id'],
     users
   };
   res.render('urls_index', templateVars);
@@ -118,6 +116,7 @@ app.get('/urls/:shortURL', (req, res) => {
     users
   };
   res.render('urls_show', templateVars);
+  // change so only user can edit
 });
 
 
@@ -169,12 +168,13 @@ app.post("/urls", (req, res) => {
 app.post('/urls/:shortURL', (req, res) => {
   urlDatabase[req.params.shortURL] = req.body.updateURL;
   res.redirect(`/urls/${req.params.shortURL}`);
-})
+});
 
 
 app.post('/urls/:shortURL/delete', (req, res) => {
   delete urlDatabase[req.params.shortURL];
   res.redirect('/urls');
+  // change so only users can delete
 });
 
 
