@@ -14,6 +14,15 @@ const emailAlreadyExists = function(key, variable) {
   }
   return false;
 };
+const urlsForUser = function(id, database) {
+  let userURL = {};
+  for (let url in database) {
+    if (database[url].user === id) {
+      userURL[url] = database[url]
+    }
+  }
+  return userURL;
+}
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
