@@ -17,7 +17,7 @@ const emailAlreadyExists = function(key, variable) {
 const urlsForUser = function(id) {
   let userURL = {};
   for (let key in urlDatabase) {
-    if (urlDatabase[key]['userID'] === id) {
+    if (urlDatabase[key].userID === id) {
       userURL[key] = urlDatabase[key];
     }
   }
@@ -89,6 +89,7 @@ app.get('/urls', (req, res) => {
   const templateVars = {
     urls: urlsForUser(req.cookies['user_id']),
     user_id: req.cookies['user_id'],
+    // user: users[req.cookies['user_id']]
     users
   };
   res.render('urls_index', templateVars);
