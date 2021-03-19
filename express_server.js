@@ -14,16 +14,16 @@ const emailAlreadyExists = function(key, variable) {
   }
   return false;
 };
-const urlsForUser = function(id, urlDatabase) {
+const urlsForUser = function(id) {
   let userURL = {};
   for (let key in urlDatabase) {
-    let url = urlDatabase[key];
-    if (url.userID === id) {
-      userURL[key] = url;
+    let urlKey = urlDatabase[key];
+    if (urlDatabase[key]['userID'] === id) {
+      userURL[key] = urlKey;
     }
   }
   return userURL;
-}
+};
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
@@ -83,15 +83,16 @@ app.get('/login', (req, res) => {
 
 
 app.get('/urls', (req, res) => {
+  if (!req.cookies['user_id']) {
+    res.redirect('/login');
+    return;
+  }
+  let newCookie = req.cookies['user_id'];
   const templateVars = {
     urls: urlsForUser(req.cookies['user_id']),
-    user_id: req.cookies['user_id'],
+    user_id: users[newCookie],
     users
   };
-  // if (!req.cookies['user_id']) {
-  //   res.redirect('/login');
-  //   return;
-  // }
   res.render('urls_index', templateVars);
 });
 
@@ -128,6 +129,7 @@ app.get('/u/:shortURL', (req, res) => {
 
 app.get('/register', (req, res) => {
   const templateVars = {
+    urls: urlDatabase,
     user_id: req.cookies['user_id'],
     users
   }
@@ -153,7 +155,6 @@ app.post('/register', (req, res) => {
     password: req.body.password
   };
   res.cookie('user_id', users[newID].id);
-  console.log(users);
   res.redirect('/urls');
 });
 
