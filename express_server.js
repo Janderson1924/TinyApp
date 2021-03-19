@@ -14,11 +14,12 @@ const emailAlreadyExists = function(key, variable) {
   }
   return false;
 };
-const urlsForUser = function(id, database) {
+const urlsForUser = function(id, urlDatabase) {
   let userURL = {};
-  for (let url in database) {
-    if (database[url].user === id) {
-      userURL[url] = database[url]
+  for (let key in urlDatabase) {
+    let url = urlDatabase[key];
+    if (url.userID === id) {
+      userURL[key] = url;
     }
   }
   return userURL;
@@ -36,12 +37,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.set("view engine", "ejs");
-
-
-// const urlDatabase = {
-//   "b2xVn2": "http://www.lighthouselabs.ca",
-//   "9sm5xK": "http://www.google.com"
-// }
 
 
 const urlDatabase = {
@@ -88,15 +83,15 @@ app.get('/login', (req, res) => {
 
 
 app.get('/urls', (req, res) => {
-  if (!req.cookies['user_id']) {
-    res.redirect('/login');
-    return;
-  }
   const templateVars = {
-    urls: urlDatabase,
+    urls: urlsForUser(req.cookies['user_id']),
     user_id: req.cookies['user_id'],
     users
   };
+  // if (!req.cookies['user_id']) {
+  //   res.redirect('/login');
+  //   return;
+  // }
   res.render('urls_index', templateVars);
 });
 
