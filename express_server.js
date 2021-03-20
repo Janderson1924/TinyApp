@@ -1,13 +1,4 @@
-const urlsForUser = function(id) {
-  let userURL = {};
-  for (let key in urlDatabase) {
-    if (urlDatabase[key].userID === id) {
-      userURL[key] = urlDatabase[key];
-    }
-  }
-  return userURL;
-};
-const { getUserByEmail, generateRandomString } = require("./helpers.js");
+const { getUserByEmail, generateRandomString, urlsForUser } = require("./helpers.js");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cookieSession = require('cookie-session');
@@ -57,7 +48,7 @@ app.get("/urls.json", (req, res) => {
 
 app.get("/urls", (req, res) => {
   let loggedUser = req.session.user_id;
-  let newUser = urlsForUser(loggedUser);
+  let newUser = urlsForUser(loggedUser, urlDatabase);
   const templateVars = { urls: newUser, user_id: users[loggedUser] };
   res.render("urls_index", templateVars);
 });
