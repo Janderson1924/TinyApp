@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieSession({name: 'session', keys: ['key1', 'key2']}));
 
 
-/***** HELPER FUNCTIONS *****/
+//***** HELPER FUNCTIONS *****//
 const { getUserByEmail, generateRandomString, urlsForUser } = require("./helpers.js");
 
 
@@ -35,7 +35,7 @@ const users = {
 
 
 
-/******* ROUTING *******/
+//******* ROUTING *******//
 app.get("/", (req, res) => {
   res.redirect("/urls");
 });
@@ -64,7 +64,7 @@ app.get("/urls/new", (req, res) => {
 
 
 
-/******** REGISTER *********/
+//******** REGISTER *********//
 app.get("/register", (req, res) => {
   const templateVars = { urls: urlDatabase, users, user_id: req.session.user_id };
   res.render("urls_register", templateVars);
@@ -95,7 +95,7 @@ app.post("/register", (req, res) => {
 
 
 
-/******* LOGIN *******/
+//******* LOGIN *******//
 app.get("/login", (req, res) => {
   const templateVars = { urls: urlDatabase, users, user_id: req.session.user_id };
   const userID = req.session.user_id;
@@ -134,12 +134,12 @@ app.post("/urls", (req, res) => {
 
 
 
-/****** shortURL *******/
+//****** shortURL *******//
 app.post("/urls/:id", (req, res) => {
-  const nURL = req.body.longURL;
+  const newURL = req.body.longURL;
   const id = req.session.user_id;
   if (id === urlDatabase[req.params.id]["userID"]) {
-    urlDatabase[req.params.id] = { longURL: nURL, userID: id };
+    urlDatabase[req.params.id] = { longURL: newURL, userID: id };
     res.redirect("/urls");
   } else {
     res.status(403).send("Error 403: Forbidden");
@@ -180,14 +180,14 @@ app.get("/u/:shortURL", (req, res) => {
 
 
 
-/***** CATCH ALL ******/
+//***** CATCH ALL ******//
 app.get('*', (req, res) => {
   res.render('urls_login');
 });
 
 
 
-/****** SERVER PORT ******/
+//****** SERVER PORT ******//
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}!`);
 });
