@@ -27,6 +27,7 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const bcrypt = require('bcryptjs');
 
 const app = express();
 const PORT = 8080;
@@ -165,7 +166,7 @@ app.post("/urls", (req, res) => {
 
 
 app.post('/urls/:shortURL', (req, res) => {
-  urlDatabase[req.params.shortURL] = req.body.updateURL; // TODO update to new object format
+  urlDatabase[req.params.shortURL] = req.body.updateURL; // TODO update to new object format?
   res.redirect(`/urls/${req.params.shortURL}`);
 });
 
