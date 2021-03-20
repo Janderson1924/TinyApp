@@ -87,11 +87,11 @@ app.post("/register", (req, res) => {
     password: bcrypt.hashSync(password, 10)
   };
   req.session.user_id = id;
-  res.redirect("/urls/");
+  res.redirect("/urls");
 });
 
 
-app.get("/login/", (req, res) => {
+app.get("/login", (req, res) => {
   const templateVars = { urls: urlDatabase, users, user_id: req.session.user_id };
   const userID = req.session.user_id;
   if (userID) {
@@ -102,7 +102,7 @@ app.get("/login/", (req, res) => {
 });
 
 
-app.post("/login/", (req, res) => {
+app.post("/login", (req, res) => {
   let userID = getUserByEmail(req.body.email, users);
   if (!userID) {
     return res.status(403).send(`${req.body.email} is not a registered user!`);
