@@ -1,20 +1,17 @@
-const { getUserByEmail, generateRandomString, urlsForUser } = require("./helpers.js");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cookieSession = require('cookie-session');
 const app = express();
 const PORT = 8080;
 const bcrypt = require('bcryptjs');
+
 app.set("view engine", "ejs");
-
-
-app.use(cookieSession({
-  name: 'session',
-  keys: ['key1', 'key2']
-}));
-
-
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cookieSession({name: 'session', keys: ['key1', 'key2']}));
+
+
+/***** HELPER FUNCTIONS *****/
+const { getUserByEmail, generateRandomString, urlsForUser } = require("./helpers.js");
 
 
 const urlDatabase = {
@@ -36,15 +33,16 @@ const users = {
 };
 
 
+
+
+/******* ROUTING *******/
 app.get("/", (req, res) => {
   res.redirect("/urls");
 });
 
-
 app.get("/urls.json", (req, res) => {
   res.json(urlDatabase);
 });
-
 
 app.get("/urls", (req, res) => {
   let loggedUser = req.session.user_id;
@@ -53,7 +51,20 @@ app.get("/urls", (req, res) => {
   res.render("urls_index", templateVars);
 });
 
+app.get("/urls/new", (req, res) => {
+  let key = req.session.user_id;
+  if (!req.session.user_id) {
+    res.redirect("/login");
+    return;
+  }
+  const templateVars = { urls: urlDatabase, user_id: users[key] };
+  res.render("urls_new", templateVars);
+});
 
+
+
+
+/******** REGISTER *********/
 app.get("/register", (req, res) => {
   const templateVars = { urls: urlDatabase, users, user_id: req.session.user_id };
   res.render("urls_register", templateVars);
@@ -82,6 +93,9 @@ app.post("/register", (req, res) => {
 });
 
 
+
+
+/******* LOGIN *******/
 app.get("/login", (req, res) => {
   const templateVars = { urls: urlDatabase, users, user_id: req.session.user_id };
   const userID = req.session.user_id;
@@ -91,7 +105,6 @@ app.get("/login", (req, res) => {
     res.render("urls_login", templateVars);
   }
 });
-
 
 app.post("/login", (req, res) => {
   let userID = getUserByEmail(req.body.email, users);
@@ -106,6 +119,10 @@ app.post("/login", (req, res) => {
   }
 });
 
+app.post("/logout", (req, res) => {
+  req.session = null;
+  res.redirect("/urls");
+});
 
 app.post("/urls", (req, res) => {
   const shortURL = generateRandomString(6);
@@ -115,17 +132,9 @@ app.post("/urls", (req, res) => {
 });
 
 
-app.get("/urls/new", (req, res) => {
-  let key = req.session.user_id;
-  if (!req.session.user_id) {
-    res.redirect("/login");
-    return;
-  }
-  const templateVars = { urls: urlDatabase, user_id: users[key] };
-  res.render("urls_new", templateVars);
-});
 
 
+/****** shortURL *******/
 app.post("/urls/:id", (req, res) => {
   const nURL = req.body.longURL;
   const id = req.session.user_id;
@@ -136,7 +145,6 @@ app.post("/urls/:id", (req, res) => {
     res.status(403).send("Error 403: Forbidden");
   }
 });
-
 
 app.post("/urls/:shortURL/delete", (req, res) => {
   const userID = req.session.user_id;
@@ -149,7 +157,6 @@ app.post("/urls/:shortURL/delete", (req, res) => {
   }
 });
 
-
 app.get("/urls/:shortURL", (req, res) => {
   let key = urlDatabase[req.params.shortURL]["userID"];
   let user = req.session.user_id;
@@ -161,7 +168,6 @@ app.get("/urls/:shortURL", (req, res) => {
   }
 });
 
-
 app.get("/u/:shortURL", (req, res) => {
   const shortUrl = urlDatabase[req.params.shortURL]
   if (!shortUrl) {
@@ -172,12 +178,16 @@ app.get("/u/:shortURL", (req, res) => {
 });
 
 
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}!`);
+
+
+/***** CATCH ALL ******/
+app.get('*', (req, res) => {
+  res.render('urls_login');
 });
 
 
-app.post("/logout", (req, res) => {
-  req.session = null;
-  res.redirect("/urls");
+
+/****** SERVER PORT ******/
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}!`);
 });
