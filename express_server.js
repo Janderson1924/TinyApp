@@ -86,11 +86,9 @@ app.get('/urls', (req, res) => {
     res.redirect('/login');
     return;
   }
-  console.log('req.cookies["user_id"]:', req.cookies['user_id']);
   const templateVars = {
     urls: urlsForUser(req.cookies['user_id']),
     user_id: req.cookies['user_id'],
-    // user: users[req.cookies['user_id']]
     users
   };
   res.render('urls_index', templateVars);
@@ -123,7 +121,6 @@ app.get('/urls/:shortURL', (req, res) => {
 
 app.get('/u/:shortURL', (req, res) => {
   const longURl = urlDatabase[req.params.shortURL].longURL;
-  console.log(longURl);
   res.redirect(longURl);
 });
 
@@ -168,15 +165,21 @@ app.post("/urls", (req, res) => {
 
 
 app.post('/urls/:shortURL', (req, res) => {
-  urlDatabase[req.params.shortURL] = req.body.updateURL; // TODO  update to new object format
+  urlDatabase[req.params.shortURL] = req.body.updateURL; // TODO update to new object format
   res.redirect(`/urls/${req.params.shortURL}`);
 });
 
 
 app.post('/urls/:shortURL/delete', (req, res) => {
+  if (req.cookies['user_id'] !== urlDatabase[req.params.shortURL].userID) {
+    res.status(403);
+    res.send(`Status Code: ${res.statusCode} You must be logged in!`)
+  } else {
   delete urlDatabase[req.params.shortURL];
   res.redirect('/urls');        // TODO change so only users can delete
+  }
 });
+
 
 
 app.post('/login', (req, res) => {
@@ -188,7 +191,7 @@ app.post('/login', (req, res) => {
       res.redirect('/urls');
     }
   }
-  res.status(403)
+  res.status(403);
   res.send(`Status Code: ${res.statusCode} Incorrect Email or Password`);
   return;
 });
