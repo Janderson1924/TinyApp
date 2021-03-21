@@ -5,9 +5,9 @@ TinyApp is a full stack web application built with Node and Express that allows 
 ## Final Product
 
 ![URL Homepage when logged in!](https://github.com/Janderson1924/tinyapp/blob/master/docs/urls_homepage.png?raw=true)
-!["screenshot description"](#)
-!["screenshot description"](#)
-!["screenshot description"](#)
+![Login Page](https://github.com/Janderson1924/tinyapp/blob/master/docs/Login.png?raw=true)
+![Register Page](https://github.com/Janderson1924/tinyapp/blob/master/docs/Register.png?raw=true)
+![New URL Page](https://github.com/Janderson1924/tinyapp/blob/master/docs/Create_URL.png?raw=true)
 
 ## BREAD Functionality
 - Browse your saved URLs
