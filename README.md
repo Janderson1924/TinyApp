@@ -4,13 +4,17 @@ TinyApp is a full stack web application built with Node and Express that allows 
 
 ## Screenshots
 
-!['Home Page'](https://github.com/Janderson1924/TinyApp/blob/master/docs/Homepage.png?raw=true)
+- Home Page
+  !['Home Page'](https://github.com/Janderson1924/TinyApp/blob/master/docs/Homepage.png?raw=true)
 
-!['Register Page'](https://github.com/Janderson1924/TinyApp/blob/master/docs/register.gif?raw=true)
+- Register
+  !['Register Page'](https://github.com/Janderson1924/TinyApp/blob/master/docs/register.gif?raw=true)
 
-!['Login Page'](https://github.com/Janderson1924/TinyApp/blob/master/docs/login.gif?raw=true)
+- Login
+  !['Login Page'](https://github.com/Janderson1924/TinyApp/blob/master/docs/login.gif?raw=true)
 
-!['URLs Page'](https://github.com/Janderson1924/TinyApp/blob/master/docs/view:delete.gif?raw=true)
+- View/Edit/Delete URLs
+  !['URLs Page'](https://github.com/Janderson1924/TinyApp/blob/master/docs/view:delete.gif?raw=true)
 
 ## BREAD Functionality
 
