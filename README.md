@@ -13,6 +13,9 @@ TinyApp is a full stack web application built with Node and Express that allows 
 - Login
   !['Login Page'](https://github.com/Janderson1924/TinyApp/blob/master/docs/login.gif?raw=true)
 
+- Create URLs
+  !['Create URLs'](https://github.com/Janderson1924/TinyApp/blob/master/docs/createurl.gif?raw=true)
+
 - View/Edit/Delete URLs
   !['URLs Page'](https://github.com/Janderson1924/TinyApp/blob/master/docs/view:delete.gif?raw=true)
 
