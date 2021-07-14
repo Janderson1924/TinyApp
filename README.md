@@ -1,4 +1,4 @@
-# TinyApp Project
+# TinyApp
 
 TinyApp is a full stack web application built with Node and Express that allows users to shorten long URLs (like bit.ly).
 
@@ -6,11 +6,11 @@ TinyApp is a full stack web application built with Node and Express that allows 
 
 !['Home Page'](https://github.com/Janderson1924/TinyApp/blob/master/docs/Homepage.png?raw=true)
 
+!['Register Page'](https://github.com/Janderson1924/TinyApp/blob/master/docs/register.gif?raw=true)
+
 !['Login Page'](https://github.com/Janderson1924/TinyApp/blob/master/docs/login.gif?raw=true)
 
-!['Register Page'](https://github.com/Janderson1924/tinyapp/blob/master/docs/Register.png?raw=true)
-
-!['New URL Page'](https://github.com/Janderson1924/tinyapp/blob/master/docs/Create_URL.png?raw=true)
+!['URLs Page'](https://github.com/Janderson1924/TinyApp/blob/master/docs/view:delete.gif?raw=true)
 
 ## BREAD Functionality
 
